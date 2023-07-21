@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "vscd_socket.h"
 
@@ -10,7 +11,12 @@ void vscd_service() {
     vscd_sockets.log("service ");
 
     void* buffer = malloc(1024);
-    send_to_daemon();
+
+    memcpy((char*)buffer, "Hello from service", 1024);
+
+    send_to_daemon(buffer, strlen((char*)buffer));
+
+    memset(buffer, 0, 1024);
 
     vscd_sockets.log("service ");
 

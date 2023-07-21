@@ -8,8 +8,8 @@
 
 void create_socket();
 ssize_t recieve_from_service(void* buffer, size_t buffer_size);
-int send_to_service();
-int send_to_daemon();
+int send_to_service(void* buffer, size_t buffer_size);
+int send_to_daemon(void* buffer, size_t buffer_size);
 ssize_t recieve_from_daemon(void* buffer, size_t buffer_size);
 
 struct VscdSockets {

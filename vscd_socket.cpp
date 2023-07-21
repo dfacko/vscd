@@ -38,11 +38,10 @@ ssize_t recieve_from_service(void* buffer, size_t buffer_size) {
     return num_bytes;
 }
 
-int send_to_service() {
-    const char* reply = "Hello from root daemon";
+int send_to_service(void* buffer, size_t buffer_size) {
     // Send the reply to the service daemon
-    int sent = send(vscd_sockets.client_fd, reply, strlen(reply), 0);
-    if (sent == -1) {
+    int sent = send(vscd_sockets.client_fd, buffer, buffer_size, 0);
+    if (sent == -1 || sent != buffer_size) {
         perror("Failed to send reply to service daemon");
         // close(vscd_sockets.client_fd);
     }
@@ -93,7 +92,7 @@ void create_socket() {
     return;
 }
 
-int send_to_daemon() {
+int send_to_daemon(void* buffer, size_t buffer_size) {
     struct sockaddr_un server_address;
 
     // Create socket
@@ -115,8 +114,7 @@ int send_to_daemon() {
     }
 
     // Send message to root daemon
-    char* message = "Hello from service daemon!";
-    if (send(vscd_sockets.client_fd, message, strlen(message), 0) == -1) {
+    if (send(vscd_sockets.client_fd, buffer, buffer_size, 0) == -1) {
         perror("send failed");
         exit(EXIT_FAILURE);
     }
