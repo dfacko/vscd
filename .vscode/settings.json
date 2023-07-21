@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "vsc_workingdirectory.h": "c",
+        "stat.h": "c",
+        "limits.h": "c",
+        "stdio.h": "c",
+        "syslog.h": "c",
+        "signal.h": "c",
+        "vsc_pid.h": "c",
+        "types.h": "c",
+        "socket.h": "c",
+        "vscd_socket.h": "c",
+        "vscd_auth.h": "c"
+    }
+}
