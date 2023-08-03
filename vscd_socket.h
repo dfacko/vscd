@@ -6,22 +6,12 @@
 #include <stdio.h>
 #include <syslog.h>
 
-void create_socket();
-ssize_t recieve_from_service(void* buffer, size_t buffer_size);
-int send_to_service(void* buffer, size_t buffer_size);
-int send_to_daemon(void* buffer, size_t buffer_size);
-ssize_t recieve_from_daemon(void* buffer, size_t buffer_size);
+int accept_service_connection(int* client_fd, int* server_fd);
 
-struct VscdSockets {
-    int server_fd;
-    int client_fd;
-
-    void log(const char* info = "") {
-        syslog(LOG_NOTICE, "vscd.server_fd: %d. vscd.client_fd: %d",
-               this->server_fd, this->client_fd);
-    }
-};
-
-extern struct VscdSockets vscd_sockets;
+void create_socket(int* server_fd);
+ssize_t recieve_from_service(void* buffer, size_t buffer_size, int* client_fd);
+int send_to_service(void* buffer, size_t buffer_size, int* client_fd);
+int send_to_daemon(void* buffer, size_t buffer_size, int* client_fd);
+ssize_t recieve_from_daemon(void* buffer, size_t buffer_size, int* client_fd);
 
 #endif /* VSCD_SOCKET_H */

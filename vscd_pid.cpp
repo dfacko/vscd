@@ -63,8 +63,8 @@ void cleanup(int signal) {
     }
 
     // Cleanup and close the server socket
-    close(vscd_sockets.server_fd);
-    close(vscd_sockets.client_fd);
+    // close(vscd_sockets.server_fd);
+    // close(vscd_sockets.client_fd);
     unlink(SOCKET_PATH);
 
     close(pidFile);

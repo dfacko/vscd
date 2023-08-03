@@ -12,10 +12,7 @@
 #include "vscd_daemon.h"
 #include "vscd_pid.h"
 #include "vscd_service.h"
-#include "vscd_socket.h"
 #include "vscd_workingdirectory.h"
-
-struct VscdSockets vscd_sockets;
 
 static void daemonize() {
     pid_t pid;
@@ -90,8 +87,6 @@ int main(int argc, char* argv[]) {
         register_terminate_signals();
 
         create_vsc_directories("/var/vsc");
-
-        create_socket();
 
         syslog(LOG_NOTICE, "First daemon started.");
 

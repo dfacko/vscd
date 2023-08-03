@@ -8,21 +8,17 @@
 #include "vscd_socket.h"
 
 void vscd_service() {
-    vscd_sockets.log("service ");
+    int client_fd = 0;
 
     void* buffer = malloc(1024);
 
     memcpy((char*)buffer, "Hello from service", 1024);
 
-    send_to_daemon(buffer, strlen((char*)buffer));
+    send_to_daemon(buffer, strlen((char*)buffer), &client_fd);
 
     memset(buffer, 0, 1024);
 
-    vscd_sockets.log("service ");
-
-    ssize_t num_bytes = recieve_from_daemon(buffer, 1024);
-
-    vscd_sockets.log("service ");
+    ssize_t num_bytes = recieve_from_daemon(buffer, 1024, &client_fd);
 
     char* char_buffer = (char*)buffer;
 
