@@ -2,6 +2,7 @@
 #define VSCD_SOCKET_H
 
 #define SOCKET_PATH "/var/run/vscd.socket"
+#define BINARY_INSTALL_PATH "/usr/local/sbin/vscdaemon"
 
 #include <stdio.h>
 #include <syslog.h>

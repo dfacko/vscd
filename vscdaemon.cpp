@@ -96,6 +96,8 @@ int main(int argc, char* argv[]) {
         // Handle the "service" case
         printf("Starting the service...\n");
 
+        printf("PID of service :%d\n", getpid());
+
         openlog("vscdaemon-service", LOG_PID, LOG_DAEMON);
 
         vscd_service();

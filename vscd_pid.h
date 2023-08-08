@@ -2,7 +2,7 @@
 #define VSC_PID_H
 
 int write_pid();
-void cleanup();
+void cleanup(int signal);
 void handle_signal(int signal);
 void register_terminate_signals();
 

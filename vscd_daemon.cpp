@@ -15,22 +15,22 @@ void vscd_daemon() {
     create_socket(&server_fd);
 
     while (1) {
-        accept_service_connection(&client_fd, &server_fd);
-        syslog(LOG_NOTICE, "client_fd is : %d", client_fd);
-        void* buffer = malloc(1024);
-        ssize_t num_bytes = recieve_from_service(buffer, 1024, &client_fd);
+        if (accept_service_connection(&client_fd, &server_fd) == 0) {
+            syslog(LOG_NOTICE, "client_fd is : %d", client_fd);
 
-        ((char*)buffer)[num_bytes] = '\0';
+            unsigned char buffer[1024] = {0};
+            ssize_t num_bytes = recieve_from_service(buffer, 1024, &client_fd);
 
-        syslog(LOG_NOTICE, "recived from service :%s \n", (char*)buffer);
+            ((char*)buffer)[num_bytes] = '\0';
 
-        memset(buffer, 0, 1024);
-        memcpy((char*)buffer, "Hello from root daemon", 1024);
+            syslog(LOG_NOTICE, "recived from service :%s \n", (char*)buffer);
 
-        send_to_service(buffer, strlen((char*)buffer), &client_fd);
+            memset(buffer, 0, 1024);
+            memcpy((char*)buffer, "Hello from root daemon", 1024);
 
-        // char* char_buffer = (char*)buffer;
-
-        free(buffer);
+            send_to_service(buffer, strlen((char*)buffer), &client_fd);
+        } else {
+            syslog(LOG_ERR, "Connection refused, invalid binary");
+        }
     }
 }

@@ -10,7 +10,7 @@
 void vscd_service() {
     int client_fd = 0;
 
-    void* buffer = malloc(1024);
+    unsigned char buffer[1024] = {0};
 
     memcpy((char*)buffer, "Hello from service", 1024);
 
@@ -24,7 +24,5 @@ void vscd_service() {
 
     char_buffer[num_bytes] = '\0';
 
-    printf("recived from daemon :%s \n", char_buffer);
-
-    free(buffer);
+    printf("Recived from daemon :%s \n", char_buffer);
 }
